@@ -1,5 +1,5 @@
 require("dotenv").config()
-const apiServiceKey = "/services/api";
+const apiServiceKey = "/services/api2";
 const _ = require('underscore');
 const express = require('express');
 const { Etcd3 } = require('etcd3');
@@ -8,14 +8,14 @@ const client = new Etcd3({ hosts: process.env.ETCD_URL });
 
 const config = {
 	host: "http://127.0.0.1",
-	port: 3000
+	port: 3001
 }
 
 var app = express();
 
 app.get('/fortune', function (req, res) {
 
-	return res.send("Api " + new Date())
+	return res.send("Api 2 " + new Date())
 
 });
 
@@ -35,11 +35,11 @@ const register = async function () {
 	await lease.put(apiServiceKey).value(JSON.stringify(config))
 	console.log(`Registered @ ${apiServiceKey} - ${config.host}:${config.port}`)
 
+
 }
 
 register();
 const registerInterval = setInterval(register, 5000);
-
 
 process.on('SIGTERM', async () => {
 	console.log('SIGTERM signal received.');

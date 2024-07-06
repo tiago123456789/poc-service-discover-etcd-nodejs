@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  service-discover:
+    image: gcr.io/etcd-development/etcd:v3.4.13
+    ports:
+      - 2379:2379
+      - 2380:2380
+    container_name: service-discover
+    command: /usr/local/bin/etcd --name s1 --data-dir /etcd-data --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://0.0.0.0:2379
